@@ -6,6 +6,7 @@ import com.knuddels.jtokkit.api.EncodingRegistry;
 import com.knuddels.jtokkit.api.EncodingType;
 import com.knuddels.jtokkit.api.ModelType;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.prompt.ChatOptionsBuilder;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -66,6 +67,7 @@ public class CategorizadorDeProductosController {
                     .options(ChatOptionsBuilder.builder()
                             .withTemperature(temperature)
                             .withModel("gpt-4o").build()) //si deseo configurar el modelo aquí, puedo dar enter antes del .build, y escribir .withModel("gpt-4o-mini") por ejemplo
+                    .advisors(new SimpleLoggerAdvisor()) //Me ayuda a obtener los logs de la request y response en mi consola
                     .call()
                     .content();
         }
@@ -77,6 +79,7 @@ public class CategorizadorDeProductosController {
                 .options(ChatOptionsBuilder.builder()
                         .withTemperature(temperature)
                         .withModel("gpt-4o-mini").build())
+                .advisors(new SimpleLoggerAdvisor())
                 .call()
                 .content();
         }

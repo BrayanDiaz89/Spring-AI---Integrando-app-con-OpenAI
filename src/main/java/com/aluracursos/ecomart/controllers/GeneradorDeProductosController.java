@@ -1,6 +1,7 @@
 package com.aluracursos.ecomart.controllers;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,7 @@ public class GeneradorDeProductosController {
         var pregunta = "Genera 5 productos ecológicos";
         return this.chatClient.prompt()
                 .user(pregunta)
+                .advisors(new SimpleLoggerAdvisor()) //Me ayuda a obtener los logs de la request y response en mi consola
                 .call()
                 .content();
     }
